@@ -9,24 +9,58 @@ intents.message_content = True
 
 Bot = commands.Bot("!m ", intents=intents)
 
+class social:
+    instagram = "https://instagram.com/"
+    github = "https://github.com/"
+
+all_social_media = {
+"instagram" :"https://instagram.com/",
+"github":"https://github.com/"
+}    
+
+ROOM = 0
+
 @Bot.event
 async def on_ready():
-    mai_san_hazır.start()
     await Bot.change_presence(activity=discord.Activity(type=discord.ActivityType.streaming, name="opening",url ="https://www.youtube.com/watch?v=K1PCl5D-IpU"))
     print(f'{Bot.user} Mai san güzellik uykusundan uyandı ')
 
+@Bot.command
+async def clear(ctx, amount: int):
+    await ctx.channel.purge(limit=amaount)
+
+@Bot.event
+async def on_commend_error(ctx, error):
+    await ctx.send(error)
+
+
+
 
 @tasks.loop(seconds=10)
-async def mai_san_hazır():
-    for c in Bot.get_all_channels():
-        if c.id == 1018518119511240734:
-            await c.send("Mai-san hazır")
+async def social_media_push():
+         await ROOM.send()
 
+@Bot.command()
+async def socialpush(ctx, *args,absolute_path):   
+    all_social_media[s] = absolute_path
+    print(all_social_media)
+    #social_media_push.start()
+@Bot.command()
+async def setSocial(ctx, s, absolute_path): 
+     """s must be github ot instagram"""
+     all_social_media[s] = absolute_path
+     print(all_social_media)
 
-   
+def getSocials()-> str:
+    return 
+    """
+    {Social.INSTAGRAM}/{all_social_media.get("instagram")}
+    {Social.GITHUB}/{all_social_media.get("github")}
+    """
+
 @Bot.command()
 @commands.has_role("Admin")
-async def clear(ctx, amount = 20):
+async def clear(ctx, amount = 10):
     await ctx.channel.purge(limit=amount)
 
 @Bot.command()
@@ -52,6 +86,11 @@ async def unban(ctx, *, member):
             await ctx.guild.unban(user)
             await ctx.sende(f"Unbanned user {user.mention}")
             return
+
+
+
+
+
 
 #@Bot.event
 #async def on_message(message):
@@ -106,15 +145,12 @@ async def bb(msg):
 
 @Bot.command()
 async def sa(msg, *args):
-    if (args[0] == "mai"):
-        await msg.send("as")
+    print(args)
+    if(len(args) > 0):
+        if (args[0] == "mai"):
+            await msg.send("as")
+        else:
+            await msg.send(f"{args[0]} o kim")
 
-    elif (args[0] == " "):
-        await msg.send("as")
-
-    else:
-        args = list
-        a = args.index()        
-        await msg.send(f"{args} o kim")
 
 Bot.run(botid)
