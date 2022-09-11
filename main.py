@@ -14,8 +14,8 @@ class social:
     github = "https://github.com/"
 
 all_social_media = {
-"instagram" :"https://instagram.com/",
-"github":"https://github.com/"
+"instagram" :"https://instagram.com/mai_san_bot/",
+"github":"https://github.com/ShadoWing1"
 }    
 
 ROOM = 0
@@ -34,16 +34,14 @@ async def on_commend_error(ctx, error):
     await ctx.send(error)
 
 
-
-
 @tasks.loop(seconds=10)
 async def social_media_push():
          await ROOM.send()
 
 @Bot.command()
-async def socialpush(ctx, *args,absolute_path):   
-    all_social_media[s] = absolute_path
-    print(all_social_media)
+async def socialpush(ctx):   
+    await ctx.channel.send(f"instagram: {all_social_media['instagram']}")
+    await ctx.channel.send(f"github: {all_social_media['github']}")
     #social_media_push.start()
 @Bot.command()
 async def setSocial(ctx, s, absolute_path): 
@@ -107,6 +105,10 @@ async def ne_yapiyorsun(msg):
 async def ne(msg, *args):
     if(args[0] == "izliyorsun"):
         await msg.send("bunny girl senpai")
+
+@Bot.command()
+async def MustafaŞatıroğlu(msg):
+    await msg.send("Bana çok yardım etti")        
 
 @Bot.command()
 async def selam(msg):
