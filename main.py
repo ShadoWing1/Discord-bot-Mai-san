@@ -4,7 +4,6 @@ import discord
 from discord.ext import commands, tasks
 import os
 
-
 intents = discord.Intents.default()
 intents.message_content = True
 
