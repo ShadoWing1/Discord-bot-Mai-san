@@ -47,7 +47,7 @@ async def socialpush(ctx, *args,absolute_path):
     #social_media_push.start()
 @Bot.command()
 async def setSocial(ctx, s, absolute_path): 
-     """s must be github ot instagram"""
+     """s must be github or instagram"""
      all_social_media[s] = absolute_path
      print(all_social_media)
 
