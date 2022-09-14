@@ -155,4 +155,4 @@ async def sa(msg, *args):
             await msg.send(f"{args[0]} o kim")
 
 
-Bot.run(botid)
+Bot.run(hesap.botid)
