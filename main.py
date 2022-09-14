@@ -66,24 +66,31 @@ async def clear(ctx, amount = 10):
 async def kick(ctx, member:discord.member, *args, reason="yok"):
     await member.kick(reason=reason)
 
-
+#@commands.has_permissions(ban_members = True)
 @Bot.command()
-@commands.has_role("Admin")
-async def ban(ctx, member:discord.member, *args, reason="yok"):
-    await member.ban(reason=reason)
-
+async def ban(ctx, member : discord.Member, *, reason = None):
+    await member.ban(reason = reason)
 
 @Bot.command()
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split("#")
-    for bans in banned_users:
-        user = bans.user
 
-        if(user.name, user. discriminator) == (member_name, member_discriminator):
+    for ban_entry in banned_users:
+        user = ban_entry.user
+
+        if (user.name, user.discriminator) == (member_name, member_discriminator):
             await ctx.guild.unban(user)
-            await ctx.sende(f"Unbanned user {user.mention}")
+            await ctx.send(f'Unbanned {user.mention}')
             return
+
+@Bot.event
+async def on_memember_join(self,member):
+    kanal = discord.utils.get(member.guild.channels, name="duyuru")
+    if kanal != None or kanal != 0:
+        await kanal.send("Hoş geldin {}".format(member.mention))
+    else:
+        print("Kanal blunamadı.")
 
 
 
@@ -107,8 +114,20 @@ async def ne(msg, *args):
         await msg.send("bunny girl senpai")
 
 @Bot.command()
-async def MustafaŞatıroğlu(msg):
-    await msg.send("Bana çok yardım etti")        
+async def Yusuf_kalyoncu(msg):
+    await msg.send("Buraların çoçuğu")        
+
+@Bot.command()
+async def Mustafa_Şatıroğlu(msg):
+    await msg.send("demlenmiş çay")
+
+@Bot.command()
+async def Yavuz_Kaya(msg):
+    await msg.send("Matematik profesörü")    
+
+@Bot.command()
+async def Yavuz(msg):
+    await msg.send("Senpai")        
 
 @Bot.command()
 async def selam(msg):
@@ -126,7 +145,7 @@ async def nasilsin(msg):
 
 @Bot.command()
 async def instagram(msg):
-    await msg.send(f"{hesap.instagram} 'yi takip edebilirsin")
+    await msg.send(f"{insta} 'yi takip edebilirsin")
 
 
 @Bot.command()
@@ -152,7 +171,7 @@ async def sa(msg, *args):
         if (args[0] == "mai"):
             await msg.send("as")
         else:
-            await msg.send(f"{args[0]} o kim")
+            await msg.send(f"{args[0]}'da kim")
 
 
-Bot.run(hesap.botid)
+Bot.run(botid)
