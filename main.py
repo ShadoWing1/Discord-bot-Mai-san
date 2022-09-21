@@ -61,10 +61,28 @@ def getSocials()-> str:
 async def clear(ctx, amount = 10):
     await ctx.channel.purge(limit=amount)
 
-@Bot.command()
+"""@Bot.command()
 @commands.has_role("Admin")
 async def kick(ctx, member:discord.member, *args, reason="yok"):
     await member.kick(reason=reason)
+"""
+
+@Bot.command()
+@commands.has_permissions (kick_members=True)
+async def kick(ctx, user: discord.member, *, reason="sebep yok"):
+      try:
+            await user.kick(reason=reason)
+            embed = discord.Embed(color=discord.Colour.red(),title="", description="")
+            embed.add_field(name="kicked:", value=f"""
+The user **{user}** has been kicked            
+Reason = **{reason}**
+""",inline=True)
+            await ctx.reply(embed=embed)
+      except:
+            embed = discord.Embed(color=discord.red(),title="",description="")
+            embed.add_field(name="kicked:", value=f"Error",inline=True)      
+            await ctx.repley(embed=embed)              
+
 
 #@commands.has_permissions(ban_members = True)
 @Bot.command()
@@ -72,6 +90,7 @@ async def ban(ctx, member : discord.Member, *, reason = None):
     await member.ban(reason = reason)
 
 @Bot.command()
+@commands.has_permissions(administrator = True)
 async def unban(ctx, *, member):
     banned_users = await ctx.guild.bans()
     member_name, member_discriminator = member.split("#")
