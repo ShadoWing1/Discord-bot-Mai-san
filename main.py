@@ -83,7 +83,6 @@ Reason = **{reason}**
             embed.add_field(name="kicked:", value=f"Error",inline=True)      
             await ctx.repley(embed=embed)              
 
-
 #@commands.has_permissions(ban_members = True)
 @Bot.command()
 async def ban(ctx, member : discord.Member, *, reason = None):
